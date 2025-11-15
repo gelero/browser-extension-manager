@@ -46,14 +46,12 @@ function App() {
         throw new Error(`Falha ao alternar estado da extensão ${id}. Status: ${response.status}`);
       }
 
-      // 2. O backend retorna a extensão atualizada.
       const updatedExtension = await response.json();
 
-      // 3. Atualizar o estado do React (extensions)
       setExtensions(prevExtensions =>
         prevExtensions.map(ext =>
           ext.id === id
-            ? updatedExtension // Substitui a extensão antiga pela nova
+            ? updatedExtension
             : ext
         )
       );
@@ -63,6 +61,37 @@ function App() {
       setError(err.message);
     }
   };
+
+  const handleRemove = async (id) => {
+    const deleteUrl = `${API_URL}/${id}`
+
+    if (!window.confirm(`Tem certeza que deseja remover a extensãoID ${id}?`)) {
+      return
+    }
+
+    try {
+      const response = await fetch(deleteUrl, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+
+      if (!response.ok) {
+        throw new Error(`Falha ao remover a extensão ${id}.Status: ${response.status}`)
+      }
+
+      setExtensions(prevExtensions =>
+        prevExtensions.filter(ext => ext.id !== id)
+      )
+
+      setError(null)
+
+    } catch (err) {
+      console.error('Erro ao remover o estado:', err)
+    }
+
+  }
 
   useEffect(() => {
     fetchExtensions()
@@ -87,11 +116,19 @@ function App() {
           <li key={ext.id}>
             {ext.name} (ID: {ext.id}) - {ext.isActive ? 'Ativa' : 'Inativa'}
             <button
-              style={{ marginLeft: '10px' }}
+              style={{ marginLeft: '10px', marginRight: '5px' }}
               onClick={() => handleToggle(ext.id, ext.isActive)}
             >
               {ext.isActive ? 'Desativar' : 'Ativar'}
             </button>
+
+            <button
+              style={{ color: 'red' }}
+              onClick={() => handleRemove(ext.id)}
+            >
+              Remover
+            </button>
+
           </li>
         ))}
       </ul>
