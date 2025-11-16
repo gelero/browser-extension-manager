@@ -6,6 +6,7 @@ function App() {
   const [extensions, setExtensions] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [filterStatus, setFilterStatus] = useState('all')
 
   const fetchExtensions = async () => {
     try {
@@ -30,8 +31,8 @@ function App() {
 
   }
 
-  const handleToggle = async (id, currentIsActive) => {
-    const toggleUrl = `${API_URL}/${id}/toggle`;
+  const handleToggle = async (id, /* currentIsActive */) => {
+    const toggleUrl = `${API_URL}/${id}/toggle`
 
     try {
       const response = await fetch(toggleUrl, {
@@ -97,6 +98,19 @@ function App() {
     fetchExtensions()
   }, [])
 
+  const filteredExtensions = extensions.filter(ext => {
+    if (filterStatus === 'all') {
+      return true
+    }
+    if (filterStatus === 'active') {
+      return ext.isActive
+    }
+    if (filterStatus === 'inactive') {
+      return !ext.isActive
+    }
+    return true
+  })
+
   if (isLoading) {
     return <div className="loadin-screen">Carregando extensões...</div>
   }
@@ -109,15 +123,32 @@ function App() {
     <div className="extension-manager">
       <h1>Gerenciador de Extensões</h1>
 
+      <div className="filter-controls">
+        <button onClick={() => setFilterStatus('all')}
+          style={{ fontWeight: filterStatus === 'all' ? 'bold' : 'normal' }}>
+          Todos
+        </button>
+
+        <button onClick={() => setFilterStatus('active')}
+          style={{ fontWeight: filterStatus === 'active' ? 'bold' : 'normal' }}>
+          Ativos
+        </button>
+
+        <button onClick={() => setFilterStatus('inactive')}
+          style={{ fontWeight: filterStatus === 'inactive' ? 'bold' : 'normal' }}>
+          Inativos
+        </button>
+      </div>
+
       <p>Total de extensões carregadas: {extensions.length}</p>
 
       <ul>
-        {extensions.map(ext => (
+        {filteredExtensions.map(ext => (
           <li key={ext.id}>
             {ext.name} (ID: {ext.id}) - {ext.isActive ? 'Ativa' : 'Inativa'}
             <button
               style={{ marginLeft: '10px', marginRight: '5px' }}
-              onClick={() => handleToggle(ext.id, ext.isActive)}
+              onClick={() => handleToggle(ext.id/* , ext.isActive */)}
             >
               {ext.isActive ? 'Desativar' : 'Ativar'}
             </button>
