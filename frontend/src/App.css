@@ -1,42 +1,240 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* src/App.css */
+
+/* --- Estilos Globais e do Container --- */
+.extension-manager {
+    max-width: 1400px;
+    margin: 20px auto;
+    padding: 0 20px;
+    font-family: sans-serif;
+    background: linear-gradient(180deg, rgb(5, 10, 29), rgb(18, 36, 105));
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* --- 1. HEADER (Input-like) --- */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 2rem;
+    margin-bottom: 30px;
+    
+    /* Aparência de Input/Container */
+    background-color: #f4f4f9; /* Cor de fundo clara */
+    border: 2px solid #ccc;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.logo-container {
+    display: flex;
+    align-items: center;
 }
 
-.card {
-  padding: 2em;
+.logo-text {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #333; /* Cor escura para o texto do logo */
+    margin-left: 10px;
 }
 
-.read-the-docs {
-  color: #888;
+.theme-toggle-btn {
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 6px;
+    transition: background-color 0.2s;
+}
+
+/* --- 2. CONTROLES E FILTROS --- */
+.controls-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.section-title {
+    font-size: 1.8em;
+    color: #444;
+}
+
+.filter-controls button {
+    background-color: #e0e0e0;
+    border: none;
+    padding: 8px 15px;
+    margin-left: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+/* Estilo para o Botão de Filtro Ativo */
+.filter-controls .filter-active {
+    background-color: #007bff; /* Cor principal de destaque */
+    color: white;
+    font-weight: bold;
+}
+
+/* --- 3. SECTION DE CARDS (GRID) --- */
+.extensions-grid {
+    display: grid;
+    /* 3 COLUNAS FIXAS NO DESKTOP */
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.extension-card {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-info {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.extension-logo {
+    width: 48px;
+    height: 48px;
+    margin-right: 15px;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+.text-details h3 {
+    margin: 0 0 5px 0;
+    font-size: 1.2em;
+    color: #444;
+}
+
+.text-details .description {
+    font-size: 0.9em;
+    color: #666;
+    margin: 0;
+}
+
+.card-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.remove-btn {
+    background-color: #dc3545; /* Vermelho para remover */
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* --- Estilos do Toggle Switch --- */
+
+.toggle-switch {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Espaçamento entre o switch e o label */
+}
+
+/* Oculta o checkbox nativo */
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-switch label {
+    position: relative;
+    display: inline-block;
+    width: 50px; 
+    height: 26px; 
+    cursor: pointer;
+}
+
+.toggle-switch .slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 34px;
+}
+
+.toggle-switch .slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+.toggle-switch input:checked + .slider {
+    background-color: #4CAF50;
+}
+
+.toggle-switch input:checked + .slider:before {
+    transform: translateX(24px);
+}
+
+.status-label {
+    
+    font-weight: bold;
+    color: #444; 
+    min-width: 55px; 
+    text-align: right;
+}
+
+.toggle-switch input:checked ~ .status-label {
+    color: #4CAF50; 
+}
+
+@media (max-width: 900px) {
+    .extensions-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .extensions-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .main-header {
+        padding: 10px 15px;
+    }
+    
+    .controls-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .filter-controls {
+        margin-top: 10px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .filter-controls button {
+        flex-grow: 1; 
+        margin-left: 0;
+        margin-right: 5px;
+        text-align: center;
+    }
 }

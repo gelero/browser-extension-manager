@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react'
+import './App.css'
+import ProjectLogo from '/assets/images/logo.svg'
 
 const API_URL = 'http://localhost:5000/api/extensions'
 
@@ -19,7 +21,10 @@ function App() {
       }
 
       const data = await response.json()
-      setExtensions(data.extensions)
+      const extensionList = Array.isArray(data) ? data : (data.extensions || data.data || []);
+
+      setExtensions(extensionList)
+      /* setExtensions(data) */
 
     } catch (err) {
       console.log('Falha ao buscqar extensões:', err)
@@ -120,53 +125,98 @@ function App() {
   }
 
   return (
+
     <div className="extension-manager">
-      <h1>Gerenciador de Extensões</h1>
 
-      <div className="filter-controls">
-        <button onClick={() => setFilterStatus('all')}
-          style={{ fontWeight: filterStatus === 'all' ? 'bold' : 'normal' }}>
-          Todos
-        </button>
+      {/* ==================================== */}
+      {/* 1. HEADER (Similar a um Input) */}
+      {/* ==================================== */}
+      <header className="main-header">
+        <div className="logo-container">
+          <img 
+                src={ProjectLogo} 
+                alt="Logo do Projeto Extensions" 
+                className="project-logo" 
+            />
+        </div>
 
-        <button onClick={() => setFilterStatus('active')}
-          style={{ fontWeight: filterStatus === 'active' ? 'bold' : 'normal' }}>
-          Ativos
+        {/* Botão de Dark/Light Mode */}
+        <button className="theme-toggle-btn">
+          💡 {/* Substitua por um ícone como '☀️' ou '🌙' */}
         </button>
+      </header>
 
-        <button onClick={() => setFilterStatus('inactive')}
-          style={{ fontWeight: filterStatus === 'inactive' ? 'bold' : 'normal' }}>
-          Inativos
-        </button>
+      {/* ==================================== */}
+      {/* 2. DIV DE CONTROLES E FILTROS */}
+      {/* ==================================== */}
+      <div className="controls-container">
+        <h2 className="section-title">Extensions List</h2>
+
+        {/* Botões de Filtro */}
+        <div className="filter-controls">
+          {/* O estilo para 'selecionado' será via CSS */}
+          <button
+            onClick={() => setFilterStatus('all')}
+            className={filterStatus === 'all' ? 'filter-active' : ''}>
+            All
+          </button>
+          <button
+            onClick={() => setFilterStatus('active')}
+            className={filterStatus === 'active' ? 'filter-active' : ''}>
+            Active
+          </button>
+          <button
+            onClick={() => setFilterStatus('inactive')}
+            className={filterStatus === 'inactive' ? 'filter-active' : ''}>
+            Inactive
+          </button>
+        </div>
       </div>
 
-      <p>Total de extensões carregadas: {extensions.length}</p>
-
-      <ul>
+      <section className="extensions-grid">
         {filteredExtensions.map(ext => (
-          <li key={ext.id}>
-            {ext.name} (ID: {ext.id}) - {ext.isActive ? 'Ativa' : 'Inativa'}
-            <button
-              style={{ marginLeft: '10px', marginRight: '5px' }}
-              onClick={() => handleToggle(ext.id/* , ext.isActive */)}
-            >
-              {ext.isActive ? 'Desativar' : 'Ativar'}
-            </button>
+          <div key={ext.id} className="extension-card">
+            <div className="card-info">
+              <img
+                src={ext.logo.replace('./', '/')}
+                alt={`${ext.name} logo`}
+                className="extension-logo"
+              />
+              <div className="text-details">
+                <h3>{ext.name}</h3>
+                <p className="description">{ext.description}</p>
+              </div>
+            </div>
 
-            <button
-              style={{ color: 'red' }}
-              onClick={() => handleRemove(ext.id)}
-            >
-              Remover
-            </button>
+            <div className="card-actions">
 
-          </li>
+              <button
+                className="remove-btn"
+                onClick={() => handleRemove(ext.id)}
+              >
+                Remove
+              </button>
+
+              <div className="toggle-switch">
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={ext.isActive}
+                    onChange={() => handleToggle(ext.id)}
+                  />
+                  <span className="slider"></span>
+                </label>
+                {/*  <span className="status-label">
+                  {ext.isActive ? 'Ativa' : 'Inativa'}
+                </span> */}
+              </div>
+            </div>
+
+          </div>
         ))}
-      </ul>
-
-      <p>Lembre-se de manter o backend Node.js rodando!</p>
+      </section>
     </div>
-  )
+  );
 
 }
 
