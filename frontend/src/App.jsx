@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './App.css'
-import ProjectLogo from '/assets/images/logo.svg'
+import ProjectLogo from '/assets/images/logov1.svg'
 
 const API_URL = 'http://localhost:5000/api/extensions'
 

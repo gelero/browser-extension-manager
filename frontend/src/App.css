@@ -1,12 +1,19 @@
 /* src/App.css */
 
 /* --- Estilos Globais e do Container --- */
+body {
+    background: linear-gradient(180deg, rgb(5, 10, 29), rgb(18, 36, 105));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 1rem;
+}
+
 .extension-manager {
     max-width: 1400px;
     margin: 20px auto;
     padding: 0 20px;
     font-family: sans-serif;
-    background: linear-gradient(180deg, rgb(5, 10, 29), rgb(18, 36, 105));
 }
 
 /* --- 1. HEADER (Input-like) --- */
@@ -14,26 +21,23 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 2rem;
-    margin-bottom: 30px;
-    
-    /* Aparência de Input/Container */
-    background-color: #f4f4f9; /* Cor de fundo clara */
-    border: 2px solid #ccc;
+    height: 2.4rem;
+    margin-bottom: 10px;
+    margin-top: 30px;
+    padding-inline: 0.5rem;
+    background-color: #1f2535;
     border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
 .logo-container {
     display: flex;
     align-items: center;
+
 }
 
-.logo-text {
-    font-size: 1.5em;
-    font-weight: bold;
-    color: #333; /* Cor escura para o texto do logo */
-    margin-left: 10px;
+.project-logo {
+    height: 110px;
+    width: 110px;
 }
 
 .theme-toggle-btn {
@@ -51,45 +55,54 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 25px;
+    margin-bottom: 10px;
 }
 
 .section-title {
-    font-size: 1.8em;
-    color: #444;
+    font-size: 1.4em;
+    color: #fff;
 }
 
 .filter-controls button {
-    background-color: #e0e0e0;
+    background-color: #1f2535;
     border: none;
     padding: 8px 15px;
     margin-left: 10px;
-    border-radius: 6px;
+    border-radius: 50px;
     cursor: pointer;
     transition: background-color 0.2s, color 0.2s;
+    outline-style: none;
 }
 
 /* Estilo para o Botão de Filtro Ativo */
 .filter-controls .filter-active {
-    background-color: #007bff; /* Cor principal de destaque */
-    color: white;
+    background-color: #f45b55;
+    color: #1f2535;
     font-weight: bold;
+    border: none;
+    outline-style: none;
+}
+
+.filter-controls button:hover  {
+    background-color: hsl(226, 11%, 37%);
+    outline: 2px solid #f45b55;
+    outline-offset: 3px;
+    border: solid 1px #1f2535;
 }
 
 /* --- 3. SECTION DE CARDS (GRID) --- */
 .extensions-grid {
     display: grid;
-    /* 3 COLUNAS FIXAS NO DESKTOP */
     grid-template-columns: repeat(3, 1fr);
-    gap: 25px;
+    gap: 10px;
 }
 
 .extension-card {
-    background-color: #ffffff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    width: 300px;
+    background-color: #1f2535;
+    border-radius: 20px;
+    border: solid 1px #696d76;
     padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -112,13 +125,12 @@
 .text-details h3 {
     margin: 0 0 5px 0;
     font-size: 1.2em;
-    color: #444;
 }
 
 .text-details .description {
     font-size: 0.9em;
-    color: #666;
     margin: 0;
+    color: #696d76;
 }
 
 .card-actions {
@@ -126,16 +138,21 @@
     justify-content: space-between;
     align-items: center;
     padding-top: 15px;
-    border-top: 1px solid #eee;
 }
 
 .remove-btn {
-    background-color: #dc3545; /* Vermelho para remover */
+    background-color: #1f2535;
     color: white;
-    border: none;
+    border:  solid 1px hsl(250, 11%, 60%);
     padding: 8px 12px;
-    border-radius: 4px;
+    border-radius: 50px;
     cursor: pointer;
+}
+.remove-btn:hover {
+    background-color: hsl(226, 11%, 37%);
+    outline: 2px solid #f45b55;
+    outline-offset: 3px;
+    border: solid 1px #1f2535;
 }
 
 /* --- Estilos do Toggle Switch --- */
@@ -143,10 +160,9 @@
 .toggle-switch {
     display: flex;
     align-items: center;
-    gap: 10px; /* Espaçamento entre o switch e o label */
+    gap: 10px;
 }
 
-/* Oculta o checkbox nativo */
 .toggle-switch input {
     opacity: 0;
     width: 0;
@@ -156,8 +172,8 @@
 .toggle-switch label {
     position: relative;
     display: inline-block;
-    width: 50px; 
-    height: 26px; 
+    width: 50px;
+    height: 26px;
     cursor: pointer;
 }
 
@@ -184,24 +200,12 @@
     border-radius: 50%;
 }
 
-.toggle-switch input:checked + .slider {
-    background-color: #4CAF50;
+.toggle-switch input:checked+.slider {
+    background-color: #f45b55;
 }
 
-.toggle-switch input:checked + .slider:before {
+.toggle-switch input:checked+.slider:before {
     transform: translateX(24px);
-}
-
-.status-label {
-    
-    font-weight: bold;
-    color: #444; 
-    min-width: 55px; 
-    text-align: right;
-}
-
-.toggle-switch input:checked ~ .status-label {
-    color: #4CAF50; 
 }
 
 @media (max-width: 900px) {
@@ -218,7 +222,7 @@
     .main-header {
         padding: 10px 15px;
     }
-    
+
     .controls-container {
         flex-direction: column;
         align-items: flex-start;
@@ -232,7 +236,7 @@
     }
 
     .filter-controls button {
-        flex-grow: 1; 
+        flex-grow: 1;
         margin-left: 0;
         margin-right: 5px;
         text-align: center;
