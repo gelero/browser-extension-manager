@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import './App.css'
-import ProjectLogo from '/assets/images/logov1.svg'
+import ProjectLogoLight from '/assets/images/logo.svg'
+import ProjectLogoDark from '/assets/images/logov1.svg'
+import MoonIcon from '/assets/images/icon-moon.svg'
+import SunIcon from '/assets/images/icon-sun.svg'
 
 const API_URL = 'http://localhost:5000/api/extensions'
 
@@ -9,6 +12,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
   const [filterStatus, setFilterStatus] = useState('all')
+  const [theme, setTheme] = useState('light')
 
   const fetchExtensions = async () => {
     try {
@@ -99,9 +103,14 @@ function App() {
 
   }
 
+  const toggleTheme = () => {
+    setTheme(prevTheme => (prevTheme === 'light' ? 'dark' : 'light'))
+  }
+
   useEffect(() => {
+    document.body.setAttribute('data-theme', theme)
     fetchExtensions()
-  }, [])
+  }, [theme])
 
   const filteredExtensions = extensions.filter(ext => {
     if (filterStatus === 'all') {
@@ -126,47 +135,52 @@ function App() {
 
   return (
 
-    <div className="extension-manager">
+    <div className="extension-manager" data-theme={theme}>
 
-      {/* ==================================== */}
-      {/* 1. HEADER (Similar a um Input) */}
-      {/* ==================================== */}
       <header className="main-header">
         <div className="logo-container">
-          <img 
-                src={ProjectLogo} 
-                alt="Logo do Projeto Extensions" 
-                className="project-logo" 
-            />
+          <img
+            src={theme === 'light' ? ProjectLogoLight : ProjectLogoDark}
+            alt="Logo do Projeto Extensions"
+            className="project-logo"
+          />
         </div>
 
-        {/* Botão de Dark/Light Mode */}
-        <button className="theme-toggle-btn">
-          💡 {/* Substitua por um ícone como '☀️' ou '🌙' */}
+        <button className="theme-toggle-btn"
+          onClick={toggleTheme}
+        >
+          <img className='theme-button'
+            src={theme === 'light' ? MoonIcon : SunIcon}
+            alt={theme === 'light' ? 'Modo Escuro' : 'Modo Claro'}
+            style={{ width: '25px', height: '25px' }}
+          />
         </button>
       </header>
 
-      {/* ==================================== */}
-      {/* 2. DIV DE CONTROLES E FILTROS */}
-      {/* ==================================== */}
       <div className="controls-container">
         <h2 className="section-title">Extensions List</h2>
-
-        {/* Botões de Filtro */}
         <div className="filter-controls">
-          {/* O estilo para 'selecionado' será via CSS */}
           <button
-            onClick={() => setFilterStatus('all')}
+            onClick={(e) => {
+              setFilterStatus('all')
+              e.currentTarget.blur()
+            }}
             className={filterStatus === 'all' ? 'filter-active' : ''}>
             All
           </button>
           <button
-            onClick={() => setFilterStatus('active')}
+            onClick={(e) => {
+              setFilterStatus('active')
+              e.currentTarget.blur()
+            }}
             className={filterStatus === 'active' ? 'filter-active' : ''}>
             Active
           </button>
           <button
-            onClick={() => setFilterStatus('inactive')}
+            onClick={(e) => {
+              setFilterStatus('inactive')
+              e.currentTarget.blur()
+            }}
             className={filterStatus === 'inactive' ? 'filter-active' : ''}>
             Inactive
           </button>
@@ -206,10 +220,8 @@ function App() {
                   />
                   <span className="slider"></span>
                 </label>
-                {/*  <span className="status-label">
-                  {ext.isActive ? 'Ativa' : 'Inativa'}
-                </span> */}
               </div>
+
             </div>
 
           </div>
