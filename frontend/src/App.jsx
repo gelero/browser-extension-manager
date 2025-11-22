@@ -40,9 +40,9 @@ function App() {
 
   }
 
-  const handleToggle = async (id, /* currentIsActive */) => {
+  const handleToggle = async (id) => {
     const toggleUrl = `${API_URL}/${id}/toggle`
-
+    const ANIMATION_DELAY = 500
     try {
       const response = await fetch(toggleUrl, {
         method: 'PATCH',
@@ -195,6 +195,7 @@ function App() {
                 src={ext.logo.replace('./', '/')}
                 alt={`${ext.name} logo`}
                 className="extension-logo"
+                style={{ width: '58px', height: '58px' }}
               />
               <div className="text-details">
                 <h3>{ext.name}</h3>
@@ -218,7 +219,10 @@ function App() {
                     checked={ext.isActive}
                     onChange={() => handleToggle(ext.id)}
                   />
-                  <span className="slider"></span>
+                  <span className="slider"
+                  >
+
+                  </span>
                 </label>
               </div>
 

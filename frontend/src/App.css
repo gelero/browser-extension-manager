@@ -1,6 +1,13 @@
-/* src/App.css */
+@font-face {
+    font-family: 'NotoSans';
+    src: url('/assets/fonts/NotoSans-VariableFont_wdth,wght.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
 :root {
-    --color-background-app: linear-gradient(180deg, hsl(217, 61%, 90%), hsl(200, 60%, 99%));
+    --color-background-app: linear-gradient(180deg, hsl(217, 61%, 90%), #effbf9);
     --color-background-card: #ffffff;
     --color-text-primary: hsl(225, 23%, 24%);
     --color-text-secondary: #696d76;
@@ -11,11 +18,11 @@
     --color-primary-text-filters: #1f2535;
     --color-text-active-inverse: #ffffff;
     --color-text-inactive-hover: hsl(250, 15%, 51%);
-    --color-background-theme-btn-hover:  hsl(214, 41%, 97%);
+    --color-background-theme-btn-hover: hsl(214, 41%, 97%);
 }
 
 [data-theme="dark"] {
-    --color-background-app: linear-gradient(180deg,  rgb(5, 10, 29), rgb(18, 36, 105));
+    --color-background-app: linear-gradient(180deg, rgb(5, 10, 29), rgb(18, 36, 105));
     --color-background-card: #1f2535;
     --color-text-primary: #f0f0f0;
     --color-text-secondary: #696d76;
@@ -25,8 +32,8 @@
     --color-primary-theme-btn-hover: #525868;
     --color-primary-text-filters: #f0f0f0;
     --color-text-active-inverse: #1f2535;
-    --color-text-inactive-hover:#f0f0f0;
-    --color-background-theme-btn-hover:  hsl(226, 11%, 37%);
+    --color-text-inactive-hover: #f0f0f0;
+    --color-background-theme-btn-hover: hsl(226, 11%, 37%);
 }
 
 /* --- Estilos Globais e do Container --- */
@@ -35,17 +42,18 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-bottom: 1rem;
+    padding-bottom: 2rem;
+    padding-inline: 3.5rem;
+    font-family: 'NotoSans', sans-serif;
 }
 
 .extension-manager {
     max-width: 1400px;
-    margin: 20px auto;
+    margin: 40px auto;
     padding: 0 20px;
-    font-family: sans-serif;
 }
 
-/* --- 1. HEADER (Input-like) --- */
+/* --- 1. HEADER  --- */
 .main-header {
     display: flex;
     justify-content: space-between;
@@ -78,7 +86,7 @@ body {
 }
 
 .theme-toggle-btn:hover {
-  background-color: var(--color-primary-theme-btn-hover);
+    background-color: var(--color-primary-theme-btn-hover);
 }
 
 .theme-toggle-btn:focus {
@@ -95,7 +103,8 @@ body {
 }
 
 .section-title {
-    font-size: 1.4em;
+    font-size: 1.8em;
+    font-weight: 700;
     color: var(--color-text-primary);
 }
 
@@ -133,19 +142,20 @@ body {
 .filter-controls .filter-active:hover {
     background-color: #f45b55;
     color: var(--color-text-active-inverse);
-    border: solid 1px transparent; 
+    border: solid 1px transparent;
     outline: none;
 }
 
 /* --- 3. SECTION DE CARDS (GRID) --- */
 .extensions-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(380px, 1fr));
     gap: 10px;
 }
 
 .extension-card {
-    width: 300px;
+    /* width: 300px; */
+    min-width: 300px;
     background-color: var(--color-background-card);
     border-radius: 20px;
     border: solid 1px #696d76;
@@ -175,18 +185,22 @@ body {
     font-size: 1.2em;
 }
 
+.text-details {
+    flex-grow: 1;
+}
+
 .text-details .description {
-    font-size: 0.9em;
+    font-size: 0.88em;
     margin: 0;
     color: var(--color-text-secondary);
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    line-clamp: 2;
-    min-height: calc(1.2em * 3);
+    line-clamp: 3;
+    min-height: calc(1.4em * 3);
     margin: 5px 0 0 0;
-    line-height: 1.2em;
+    line-height: 1.4em;
     color: var(--color-text-secondary);
 }
 
@@ -206,6 +220,7 @@ body {
     border-radius: 50px;
     cursor: pointer;
 }
+
 .remove-btn:focus {
     outline: 2px solid #f45b55;
     outline-offset: 3px;
@@ -274,9 +289,18 @@ body {
     .extensions-grid {
         grid-template-columns: repeat(2, 1fr);
     }
+
+    .extension-card {
+        width: 300px;
+    }
+
 }
 
 @media (max-width: 800px) {
+    body {
+        padding-inline: 0;
+    }
+
     .main-header {
         height: 3.5rem;
         margin-bottom: 0;
@@ -309,4 +333,13 @@ body {
         text-align: center;
         font-size: 1.25rem;
     }
+
+    .extension-card {
+        width: 300px;
+    }
+
+    .text-details .description {
+        font-size: 0.95em;
+    }
+
 }
