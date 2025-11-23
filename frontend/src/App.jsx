@@ -13,7 +13,7 @@ function App() {
   const [error, setError] = useState(null)
   const [filterStatus, setFilterStatus] = useState('all')
   const [theme, setTheme] = useState('light')
-  
+
   const fetchExtensions = async () => {
     try {
       setIsLoading(true)
@@ -25,7 +25,7 @@ function App() {
       }
 
       const data = await response.json()
-      const extensionList = Array.isArray(data) ? data : (data.extensions || data.data || []);
+      const extensionList = Array.isArray(data) ? data : (data.extensions || data.data || [])
 
       setExtensions(extensionList)
       /* setExtensions(data) */
@@ -42,35 +42,53 @@ function App() {
 
   const handleToggle = async (id) => {
     const toggleUrl = `${API_URL}/${id}/toggle`
-    const ANIMATION_DELAY = 500
+
+    setExtensions(prevExtensions =>
+      prevExtensions.map(ext =>
+        ext.id === id ? { ...ext, isActive: !ext.isActive } : ext
+      )
+    )
+
     try {
       const response = await fetch(toggleUrl, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
         },
-
-      });
+      })
 
       if (!response.ok) {
-        throw new Error(`Falha ao alternar estado da extensão ${id}. Status: ${response.status}`);
+        throw new Error(`Falha ao alternar estado da extensão ${id}. Status: ${response.status}`)
       }
 
-      const updatedExtension = await response.json();
+      const updatedExtension = await response.json()
+
+      setExtensions(prevExtensions => {
+
+        const isDisqualified =
+          (filterStatus === 'active' && !updatedExtension.isActive) ||
+          (filterStatus === 'inactive' && updatedExtension.isActive)
+
+        if (isDisqualified) {
+          return prevExtensions.filter(ext => ext.id !== id)
+        }
+
+        return prevExtensions.map(ext =>
+          ext.id === id ? updatedExtension : ext
+        )
+      })
+
+    } catch (err) {
+      console.error('Erro ao alternar o estado:', err)
+      setError(err.message)
 
       setExtensions(prevExtensions =>
         prevExtensions.map(ext =>
-          ext.id === id
-            ? updatedExtension
-            : ext
+          ext.id === id ? { ...ext, isActive: !ext.isActive } : ext
         )
-      );
-
-    } catch (err) {
-      console.error('Erro ao alternar o estado:', err);
-      setError(err.message);
+      )
     }
-  };
+  }
 
   const handleRemove = async (id) => {
     const deleteUrl = `${API_URL}/${id}`
@@ -233,7 +251,7 @@ function App() {
         ))}
       </section>
     </div>
-  );
+  )
 
 }
 
