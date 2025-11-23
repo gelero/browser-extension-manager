@@ -5,7 +5,7 @@ import ProjectLogoDark from '/assets/images/logov1.svg'
 import MoonIcon from '/assets/images/icon-moon.svg'
 import SunIcon from '/assets/images/icon-sun.svg'
 
-const API_URL = 'http://localhost:5000/api/extensions'
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api/extensions';
 
 function App() {
   const [extensions, setExtensions] = useState([])

@@ -6,13 +6,13 @@ const require = createRequire(import.meta.url)
 const extensionsData = require('./data.json')
 
 const app = express()
-const PORT = 5000
+const PORT = process.env.PORT || 5000
 
 app.use(cors())
 app.use(express.json())
 
 let extensions = extensionsData.map((ext, index) => ({
-    id: index + 1, // Atribui ID a partir de 1
+    id: index + 1,
     ...ext
 }))
 
@@ -44,6 +44,7 @@ app.delete('/api/extensions/:id', (req, res) => {
         res.status(404).json({message: 'Extensão não encontrada!!'})
     }
 })
+
 app.listen(PORT, () => {
-    console.log(`🚀 Servidor (ESM) rodando e IDs adicionados em http://localhost:${PORT}`)
+    console.log(`Servidor em http://localhost:${PORT}`)
 })
