@@ -8,29 +8,9 @@ const extensionsData = require('./data.json')
 const app = express()
 const PORT = process.env.PORT || 5000
 
-const allowedOrigins = [
-    'http://localhost:5173', 
-    'https://browser-extension-manager-ruddy.vercel.app', 
-    'https://browser-extension-manager-ruddy.onrender.com' 
-]
-
-const corsOptions = {
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    origin: function (origin, callback) {
-        if (!origin) return callback(null, true) 
-
-        if (allowedOrigins.indexOf(origin) !== -1) {
-            callback(null, true)
-        } else {
-            console.error(`CORS Blocked: Origin ${origin} not in allowed list.`)
-            callback(new Error('Not allowed by CORS'))
-        }
-    },
-    credentials: true,
-    optionsSuccessStatus: 204
-}
-
-app.use(cors(corsOptions))
+app.use(cors({
+    origin: '*',
+}));
 app.use(express.json())
 
 let extensions = extensionsData.map((ext, index) => ({
