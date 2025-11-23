@@ -218,6 +218,7 @@ function App() {
                     type="checkbox"
                     checked={ext.isActive}
                     onChange={() => handleToggle(ext.id)}
+                    disabled={filterStatus === 'active' || filterStatus === 'inactive'}
                   />
                   <span className="slider"
                   >
