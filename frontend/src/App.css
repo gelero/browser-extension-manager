@@ -7,7 +7,7 @@
 }
 
 :root {
-    --color-background-app: linear-gradient(180deg, hsl(217, 61%, 90%), #effbf9);
+    --color-background-app: linear-gradient(180deg, #EBF2FC 0%, #EEF8F9 100%);
     --color-background-card: #ffffff;
     --color-text-primary: hsl(225, 23%, 24%);
     --color-text-secondary: #696d76;
@@ -22,7 +22,7 @@
 }
 
 [data-theme="dark"] {
-    --color-background-app: linear-gradient(180deg, rgb(5, 10, 29), rgb(18, 36, 105));
+    --color-background-app: linear-gradient(180deg, #040918 0%, #091540 100%);
     --color-background-card: #1f2535;
     --color-text-primary: #f0f0f0;
     --color-text-secondary: #696d76;

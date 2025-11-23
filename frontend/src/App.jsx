@@ -13,7 +13,7 @@ function App() {
   const [error, setError] = useState(null)
   const [filterStatus, setFilterStatus] = useState('all')
   const [theme, setTheme] = useState('light')
-
+  
   const fetchExtensions = async () => {
     try {
       setIsLoading(true)
