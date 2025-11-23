@@ -8,7 +8,23 @@ const extensionsData = require('./data.json')
 const app = express()
 const PORT = process.env.PORT || 5000
 
-app.use(cors())
+const allowedOrigins = [
+    'http://localhost:5173', 
+    'https://browser-extension-manager-ruddy.vercel.app', 
+]
+
+const corsOptions = {
+    origin: function (origin, callback) {
+        if (!origin) return callback(null, true) 
+        if (allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, true)
+        } else {
+            callback(new Error('Not allowed by CORS'))
+        }
+    }
+}
+
+app.use(cors(corsOptions))
 app.use(express.json())
 
 let extensions = extensionsData.map((ext, index) => ({
