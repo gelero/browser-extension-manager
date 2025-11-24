@@ -94,23 +94,6 @@ body {
     outline-offset: 2px;
 }
 
-.toggle-switch input:focus,
-.toggle-switch input:active {
-    outline: none !important;
-    box-shadow: none !important;
-}
-
-.toggle-switch input:focus + .slider,
-.toggle-switch input:active + .slider {
-    outline: none !important;
-    box-shadow: none !important;
-}
-
-.toggle-switch input,
-.theme-toggle-btn {
-    -webkit-tap-highlight-color: transparent;
-}
-
 /* --- 2. CONTROLES E FILTROS --- */
 .controls-container {
     display: flex;
@@ -249,7 +232,6 @@ body {
 }
 
 /* --- Estilos do Toggle Switch --- */
-
 .toggle-switch {
     display: flex;
     align-items: center;
@@ -304,6 +286,30 @@ body {
 
 .toggle-switch input:checked+.slider:before {
     transform: translateX(24px);
+}
+
+.toggle-switch input,
+.theme-toggle-btn {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-focus-ring-color: transparent;
+}
+
+.toggle-switch input:active {
+    background-color: transparent !important;
+}
+
+.toggle-switch input:focus,
+.toggle-switch input:active,
+.toggle-switch input:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+    background-color: transparent !important;
+}
+
+.toggle-switch input:focus+.slider,
+.toggle-switch input:active+.slider {
+    outline: none !important;
+    box-shadow: none !important;
 }
 
 @media (max-width: 1185px) {
