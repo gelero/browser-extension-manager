@@ -94,6 +94,12 @@ body {
     outline-offset: 2px;
 }
 
+.toggle-switch input:focus + .slider,
+.theme-toggle-btn:focus {
+    outline: none;
+    -webkit-tap-highlight-color: transparent; 
+}
+
 /* --- 2. CONTROLES E FILTROS --- */
 .controls-container {
     display: flex;
@@ -154,7 +160,6 @@ body {
 }
 
 .extension-card {
-    /* width: 300px; */
     min-width: 300px;
     background-color: var(--color-background-card);
     border-radius: 20px;
