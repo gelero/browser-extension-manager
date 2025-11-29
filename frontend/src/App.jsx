@@ -90,7 +90,7 @@ function App() {
     }
   }
 
-/* const handleRemove = async (id) => {
+const handleRemove = async (id) => {
 
   if (!window.confirm(`Tem certeza que deseja remover a extensão ID ${id}?`)) {
    return
@@ -102,9 +102,9 @@ function App() {
 
   console.log(`Extensão ID ${id} removida temporariamente (apenas no Frontend).`)
 
- } */
+ }
 
-  const handleRemove = async (id) => {
+  /* const handleRemove = async (id) => {
     const deleteUrl = `${API_URL}/${id}`
 
     if (!window.confirm(`Tem certeza que deseja remover a extensãoID ${id}?`)) {
@@ -133,7 +133,7 @@ function App() {
       console.error('Erro ao remover o estado:', err)
     }
 
-  }
+  } */
 
   const toggleTheme = () => {
     setTheme(prevTheme => (prevTheme === 'light' ? 'dark' : 'light'))
