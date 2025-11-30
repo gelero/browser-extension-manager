@@ -83,7 +83,7 @@
      padding: 8px;
      border-radius: 6px;
      transition: background-color 0.2s;
-     -webkit-tap-highlight-color: transparent; /*  */
+     -webkit-tap-highlight-color: transparent; 
  }
 
  .theme-toggle-btn:hover {
@@ -120,7 +120,7 @@
      cursor: pointer;
      transition: background-color 0.2s, color 0.2s;
      outline-style: none;
-     -webkit-tap-highlight-color: transparent;/*  */
+     -webkit-tap-highlight-color: transparent;
  }
 
  .filter-controls button:focus {
@@ -296,13 +296,13 @@
 .toggle-switch input:focus,
 .toggle-switch input:active,
 .toggle-switch input:focus-visible,
-.theme-toggle-btn:focus,
-.theme-toggle-btn:active,
-.filter-controls button:focus,
-.filter-controls button:active {
+/* .theme-toggle-btn:focus,
+.theme-toggle-btn:active, */
+/* .filter-controls button:focus, */
+/* .filter-controls button:active {
   outline: none !important; 
   box-shadow: none !important; 
-}
+} */
 
 .toggle-switch input:focus+.slider,
 .toggle-switch input:active+.slider {

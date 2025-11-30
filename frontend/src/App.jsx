@@ -28,7 +28,6 @@ function App() {
       const extensionList = Array.isArray(data) ? data : (data.extensions || data.data || [])
 
       setExtensions(extensionList)
-      /* setExtensions(data) */
 
     } catch (err) {
       console.log('Falha ao buscqar extensões:', err)
@@ -90,19 +89,19 @@ function App() {
     }
   }
 
-const handleRemove = async (id) => {
+  const handleRemove = async (id) => {
 
-  if (!window.confirm(`Tem certeza que deseja remover a extensão ID ${id}?`)) {
-   return
+    if (!window.confirm(`Tem certeza que deseja remover a extensão ID ${id}?`)) {
+      return
+    }
+
+    setExtensions(prevExtensions =>
+      prevExtensions.filter(ext => ext.id !== id)
+    )
+
+    console.log(`Extensão ID ${id} removida temporariamente (apenas no Frontend).`)
+
   }
-
-  setExtensions(prevExtensions =>
-   prevExtensions.filter(ext => ext.id !== id)
-  )
-
-  console.log(`Extensão ID ${id} removida temporariamente (apenas no Frontend).`)
-
- }
 
   /* const handleRemove = async (id) => {
     const deleteUrl = `${API_URL}/${id}`
@@ -143,9 +142,9 @@ const handleRemove = async (id) => {
     fetchExtensions()
   }, [])
 
-useEffect(() => {
+  useEffect(() => {
     document.body.setAttribute('data-theme', theme)
-}, [theme])
+  }, [theme])
 
   const filteredExtensions = extensions.filter(ext => {
     if (filterStatus === 'all') {
@@ -182,7 +181,10 @@ useEffect(() => {
         </div>
 
         <button className="theme-toggle-btn"
-          onClick={toggleTheme}
+          onClick={(e) => {
+            toggleTheme()
+            e.currentTarget.blur() // ⬅️ Adicione esta linha
+          }}
         >
           <img className='theme-button'
             src={theme === 'light' ? MoonIcon : SunIcon}
