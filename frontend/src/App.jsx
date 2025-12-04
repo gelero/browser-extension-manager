@@ -160,11 +160,11 @@ function App() {
   })
 
   if (isLoading) {
-    return <div className="loadin-screen">Carregando extensões...</div>
+    return <main className="loadin-screen" role="status">Carregando extensões...</main>
   }
 
   if (error) {
-    return <div className="error-screen">Erro: {error}</div>
+    return <main className="error-screen" role="alert">Erro: {error}</main>
   }
 
   return (
