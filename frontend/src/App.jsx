@@ -91,7 +91,7 @@ function App() {
 
   const handleRemove = async (id) => {
 
-    if (!window.confirm(`Tem certeza que deseja remover a extensão ID ${id}?`)) {
+    if (!window.confirm(`Tem certeza que deseja remover essa extensão?`)) {
       return
     }
 
@@ -183,7 +183,7 @@ function App() {
         <button className="theme-toggle-btn"
           onClick={(e) => {
             toggleTheme()
-            e.currentTarget.blur() // ⬅️ Adicione esta linha
+            e.currentTarget.blur()
           }}
         >
           <img className='theme-button'
