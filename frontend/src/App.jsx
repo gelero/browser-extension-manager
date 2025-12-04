@@ -235,7 +235,7 @@ function App() {
                 style={{ width: '58px', height: '58px' }}
               />
               <div className="text-details">
-                <h3>{ext.name}</h3>
+                <h2>{ext.name}</h2>
                 <p className="description">{ext.description}</p>
               </div>
             </div>
