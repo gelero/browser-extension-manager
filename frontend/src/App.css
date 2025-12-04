@@ -103,10 +103,12 @@
      margin-bottom: 10px;
  }
 
- .section-title {
+ h1.section-title {
      font-size: 1.8em;
      font-weight: 700;
      color: var(--color-text-primary);
+     margin-top: 15px;
+     margin-bottom: 15px;
  }
 
  .filter-controls button {

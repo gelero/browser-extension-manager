@@ -169,7 +169,7 @@ function App() {
 
   return (
 
-    <div className="extension-manager" data-theme={theme}>
+    <main className="extension-manager" data-theme={theme}>
 
       <header className="main-header">
         <div className="logo-container">
@@ -195,7 +195,7 @@ function App() {
       </header>
 
       <div className="controls-container">
-        <h2 className="section-title">Extensions List</h2>
+        <h1 className="section-title">Extensions List</h1>
         <div className="filter-controls">
           <button
             onClick={(e) => {
@@ -256,11 +256,9 @@ function App() {
                     checked={ext.isActive}
                     onChange={() => handleToggle(ext.id)}
                     disabled={filterStatus === 'active' || filterStatus === 'inactive'}
+                    aria-label={`Toggle status for ${ext.name}`}
                   />
-                  <span className="slider"
-                  >
-
-                  </span>
+                  <span className="slider"></span>
                 </label>
               </div>
 
@@ -269,7 +267,7 @@ function App() {
           </div>
         ))}
       </section>
-    </div>
+    </main>
   )
 
 }
